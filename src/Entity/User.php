@@ -36,7 +36,16 @@ class User
     private ?string $avatar = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    private ?\DateTimeInterface $date ;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
+    public function __construct()
+    {
+        // Si aucune date n'est fournie lors de la création de l'objet User, initialisez-la avec la date du jour
+        $this->date = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +144,18 @@ class User
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
 
         return $this;
     }

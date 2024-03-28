@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}{{'register'|trans}}{% endblock %}
 
 {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
 
@@ -10,7 +10,7 @@
     {% endfor %} #}
 
     <div class="row col-md-10 mx-auto">
-        <h1>Register</h1>
+        <h1>{{'register'|trans}}</h1>
 
         {{ form_errors(registrationForm) }}
 

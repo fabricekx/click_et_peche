@@ -1,1 +1,4 @@
 register : 'Inscription'
+msg_mail_confirm : 'Bonjour {{'pseudo'}}. Merci de confirmer votre inscription en cliquant sur le lien suivant'
+Confirm_my_Email: 'Confirmer mon email'
+this_link : 'Ce lien expirera dans '

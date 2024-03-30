@@ -1,1 +1,4 @@
 register : 'Registration'
+msg_mail_confirm : 'Please confirm your email address by clicking the following link:'
+Confirm_my_Email: 'Confirm my Email'
+this_link : 'This link will expire in'

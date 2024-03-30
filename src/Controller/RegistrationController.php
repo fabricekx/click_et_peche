@@ -40,7 +40,7 @@ class RegistrationController extends AbstractController
             
             $this->addFlash(
                 'success',
-                'Votre compte a été créer, vous avez reçu un mail de confirmation'
+                'Votre compte a été créé, vous avez reçu un mail de confirmation'
             );
             $entityManager->persist($user);
             $entityManager->flush();
@@ -51,6 +51,8 @@ class RegistrationController extends AbstractController
                     ->from(new Address('clique-et-peche@gmail.com', 'Acme Mail Bot'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
+                    ->context(['pseudo' => $user->getPseudo()]) // Passer les variables ici
+
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 

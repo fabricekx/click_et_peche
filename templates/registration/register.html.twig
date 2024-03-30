@@ -9,6 +9,8 @@
 		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 	{% endfor %}
 
+
+ <div class="row col-md-10 mx-auto">
 	<h1>{{'register'|trans}}</h1>
 
 	{{ form_errors(registrationForm) }}
@@ -26,8 +28,8 @@
 
 	{{ form_row(registrationForm.agreeTerms) }}
 
-
-	{{ form_end(registrationForm) }}
 	<button type="submit" class="btn btn-success">{{'register'|trans}}</button>
 
+	{{ form_end(registrationForm) }}
+</div>
 {% endblock %}

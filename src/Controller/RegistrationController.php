@@ -51,9 +51,10 @@ class RegistrationController extends AbstractController
                     ->from(new Address('clique-et-peche@gmail.com', 'Acme Mail Bot'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
-                    ->context(['pseudo' => $user->getPseudo()]) // Passer les variables ici
 
                     ->htmlTemplate('registration/confirmation_email.html.twig')
+                            ->context(['pseudo' => $user->getPseudo()]) // Assurez-vous que la variable pseudo est correctement passée ici
+
             );
 
             // do anything else you need here, like send an email

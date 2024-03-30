@@ -1,4 +1,20 @@
 register : 'Inscription'
-msg_mail_confirm : 'Bonjour {{'pseudo'}}. Merci de confirmer votre inscription en cliquant sur le lien suivant'
+Hi: "Bonjour!"
+msg_mail_confirm: "Bonjour %pseudo%! Merci de confirmer votre inscription en cliquant sur le lien suivant."
 Confirm_my_Email: 'Confirmer mon email'
 this_link : 'Ce lien expirera dans '
+userConnected : 'Vous êtes connecté comme '
+msgPlease : 'Merci de vous connecter'
+logout : 'Déconnexion'
+login : 'Connexion'
+
+
+
+resset_pwd : 'Modifiez votre mot de passe '
+msg_send_mail : 'Entrez votre email, et nous vous enverrons un lien de modification de mot de passe.'
+resset_link_mail : 'Envoyer mail de modification'
+Password_Reset_Email_Sent : 'Mail de modification envoyé'
+msg_resset_pwd : 'Si un compte correspondant à cet email existe, alors un mail vient juste de vous être envoyé avec un lien permettant de modifier votre mot de passe. Ce lien exprirera dans '
+msg_resset_pwd2 : "Si vous n'avez pas reçu de mail, verifiez vos Spam ou"
+try_again : 'essayer encore'
+msg_resset_pwd3 : 'Pour modifier votre mot de passe, cliquez sur le lien'

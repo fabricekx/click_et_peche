@@ -10,26 +10,31 @@
 	{% endfor %}
 
 
- <div class="row col-md-10 mx-auto">
-	<h1>{{'register'|trans}}</h1>
+	<div>
+		<h1>{{'register'|trans}}</h1>
 
-	{{ form_errors(registrationForm) }}
+		{{ form_errors(registrationForm) }}
 
-	{{ form_start(registrationForm) }}
-	{{ form_row(registrationForm.pseudo) }}
-	{{ form_row(registrationForm.plainPassword, {
+		{{ form_start(registrationForm) }}
+		{{ form_row(registrationForm.pseudo) }}
+		<div class="row">
+			{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-	{{ form_row(registrationForm.firstName) }}
-	{{ form_row(registrationForm.lastName) }}
-	{{ form_row(registrationForm.email) }}
-	{{ form_row(registrationForm.birthday) }}
-	{{ form_row(registrationForm.avatar) }}
+			<div class="row d-flex">
+				{{ form_row(registrationForm.firstName) }}
+				{{ form_row(registrationForm.lastName) }}
+                {{ form_row(registrationForm.email) }}
+			</div>
+			<div>
+				
+				{{ form_row(registrationForm.birthday) }}
+				{{ form_row(registrationForm.avatar) }}
 
-	{{ form_row(registrationForm.agreeTerms) }}
+				{{ form_row(registrationForm.agreeTerms) }}
 
-	<button type="submit" class="btn btn-success">{{'register'|trans}}</button>
+				<button type="submit" class="btn btn-success">{{'register'|trans}}</button>
 
-	{{ form_end(registrationForm) }}
-</div>
-{% endblock %}
+				{{ form_end(registrationForm) }}
+			</div>
+		{% endblock %}

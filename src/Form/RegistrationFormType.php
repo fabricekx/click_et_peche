@@ -24,57 +24,58 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('firstName', TextType::class, [
-            'label' => 'Prénom',
-            'attr' => [
-                'placeholder' => 'Votre prénom'
-            ],
-            'row_attr' => ['class' => 'col-md-6'],
-            'constraints' => [
-                new NotBlank(['message' => 'Votre prénom doit être renseigné']),
-                new Length(['min' => 2, 'minMessage' => 'Votre prénom doit faire minimum 2 caractères']),
-            ],
+            ->add('firstName', TextType::class, [
+                'label' => 'Prénom',
+                'attr' => [
+                    'placeholder' => 'Votre prénom'
+                ],
+                'row_attr' => ['class' => 'col-md-4 mt-3'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Votre prénom doit être renseigné']),
+                    new Length(['min' => 2, 'minMessage' => 'Votre prénom doit faire minimum 2 caractères']),
+                ],
 
-        ])
+            ])
 
-        ->add('lastName', TextType::class, [
-            'label' => 'Nom',
-            'attr' => [
-                'placeholder' => 'Votre nom'
-            ],
-            'row_attr' => ['class' => 'col-md-6'],
-            'constraints' => [
-                new NotBlank(['message' => 'Votre nom doit être renseigné']),
-                new Length(['min' => 2, 'minMessage' => 'Votre nom doit faire minimum 2 caractères']),
-            ],
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom',
+                'attr' => [
+                    'placeholder' => 'Votre nom'
+                ],
+                'row_attr' => ['class' => 'col-md-4 mt-3'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Votre nom doit être renseigné']),
+                    new Length(['min' => 2, 'minMessage' => 'Votre nom doit faire minimum 2 caractères']),
+                ],
 
-        ])
-        ->add('email', EmailType::class, [
-            'label' => 'Email',
-            'attr' => [
-                'placeholder' => 'Votre email'
-            ],
-            'row_attr' => ['class' => 'col-md-6'],
-            'constraints' => [
-                new NotBlank(['message' => 'Votre email doit être renseigné']),
-                new Email(['message' => 'Veuillez renseigner un email valide!']),
-            ],
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'attr' => [
+                    'placeholder' => 'Votre email'
+                ],
+                'row_attr' => ['class' => 'col-md-4 mt-3'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Votre email doit être renseigné']),
+                    new Email(['message' => 'Veuillez renseigner un email valide!']),
+                ],
 
-        ])
-        ->add('birthday', DateType::class, [
-            'widget' => 'single_text',
-            'label' => 'Votre date de naissance'
-        ])
-        
-        ->add('avatar', FileType::class, [
-            'label' => 'Avatar',
-            'required' => false, // Vous pouvez modifier ceci en fonction de vos besoins
-            'mapped' => true, 
-            'attr' => [
-                'accept' => 'image/*', // Permet de limiter le type de fichiers à des images
-                'max' => 500000, // Limite la taille maximale à 500ko 
-            ],
-        ])
+            ])
+            ->add('birthday', DateType::class, [
+                'widget' => 'single_text',
+                'row_attr' => ['class' => 'col-md-4 mt-3'],
+                'label' => 'Votre date de naissance'
+            ])
+
+            ->add('avatar', FileType::class, [
+                'label' => 'Avatar',
+                'required' => false, // Vous pouvez modifier ceci en fonction de vos besoins
+                'mapped' => true,
+                'attr' => [
+                    'accept' => 'image/*', // Permet de limiter le type de fichiers à des images
+                    'max' => 500000, // Limite la taille maximale à 500ko 
+                ],
+            ])
 
 
             ->add('pseudo')
@@ -104,15 +105,15 @@ class RegistrationFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'Nouveau Mot de Passe',
+                    'label' => 'Mot de Passe',
                     'row_attr' => [
-                        'class' => 'col-md-6'
+                        'class' => 'col-md-6 mt-3'
                     ]
                 ],
                 'second_options' => [
-                    'label' => 'Répétez le nouveau mot de passe',
+                    'label' => 'Répétez le mot de passe',
                     'row_attr' => [
-                        'class' => 'col-md-6'
+                        'class' => 'col-md-6 mt-3'
                     ]
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',

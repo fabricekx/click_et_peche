@@ -1,7 +1,7 @@
 <h1>Hi! Please confirm your email!</h1>
 
-<p>
-    {{'msg_mail_confirm'|trans }} <br><br>
+<p> 
+    {{'msg_mail_confirm'|trans ({ '%pseudo%': pseudo }) }} <br><br>
     <a href="{{ signedUrl|raw }}">{{'Confirm_my_Email'|trans}}</a>.
     {{'this_link'|trans}} {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
 </p>

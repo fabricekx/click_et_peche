@@ -1,4 +1,22 @@
 register : 'Registration'
-msg_mail_confirm : 'Please confirm your email address by clicking the following link:'
+Hi: "Hi!"
+msg_mail_confirm : 'Hi %pseudo%! Please confirm your email address by clicking the following link:'
 Confirm_my_Email: 'Confirm my Email'
 this_link : 'This link will expire in'
+userConnected : 'You are logged in as'
+msgPlease : 'Please sign in '
+logout : 'Logout'
+login : 'Sign In'
+
+
+
+resset_pwd: 'Reset your password'
+msg_send_mail: 'Enter your email address, and we will send you a
+                link to reset your password.'
+resset_link_mail: 'Send password reset email'
+Password_Reset_Email_Sent : 'Password Reset Email Sent'
+msg_resset_pwd: 'If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+        This link will expire in'
+msg_resset_pwd2: "If you don't receive an email please check your spam folder or"
+try_again: 'try again'
+msg_resset_pwd3: 'To reset your password, please visit the following link'

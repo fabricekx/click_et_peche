@@ -14,6 +14,13 @@
 					<div class="card-header">
 						Informations du profil
 					</div>
+					<div>
+						{% if app.user.avatar %}
+							<img src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="Avatar de l'utilisateur">
+						{% else %}
+							<img src="{{ asset('images/avatars/images.png') }}" alt="Avatar de l'utilisateur">
+						{% endif %}
+					</div>
 					<div class="card-body">
 						<h5 class="card-text">Pseudo :
 							{{ app.user.pseudo }}</h5>
@@ -43,9 +50,9 @@
 
 
 	{# <h5> Vos annonces {{ app.user.annonce|lenght}}<h5>
-		<div>
-		{% for annonce  in app.user.annonce %}
-		<div>{{annonce.title}}</div>
-		{% endfor %}
-		</div> #}
+			<div>
+			{% for annonce  in app.user.annonce %}
+			<div>{{annonce.title}}</div>
+			{% endfor %}
+			</div> #}
 {% endblock %}

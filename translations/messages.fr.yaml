@@ -7,7 +7,7 @@ userConnected : 'Vous êtes connecté comme '
 msgPlease : 'Merci de vous connecter'
 logout : 'Déconnexion'
 login : 'Connexion'
-
+submit : "Soumettre"
 
 
 resset_pwd : 'Modifiez votre mot de passe '

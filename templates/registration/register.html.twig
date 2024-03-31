@@ -5,36 +5,45 @@
 {% endblock %}
 
 {% block body %}
-	{% for flash_error in app.flashes('verify_email_error') %}
-		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-	{% endfor %}
+		{% include "flash.html.twig" %}
 
 
-	<div>
-		<h1>{{'register'|trans}}</h1>
-
-		{{ form_errors(registrationForm) }}
-
-		{{ form_start(registrationForm) }}
-		{{ form_row(registrationForm.pseudo) }}
+	<section class="container">
 		<div class="row">
-			{{ form_row(registrationForm.plainPassword, {
+			<div class="col-9 mx-auto">
+
+
+				<h1>{{'register'|trans}}</h1>
+
+				{{ form_errors(registrationForm) }}
+
+				{{ form_start(registrationForm) }}
+
+				{{ form_row(registrationForm.pseudo) }}
+
+				{{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-			<div class="row d-flex">
-				{{ form_row(registrationForm.firstName) }}
-				{{ form_row(registrationForm.lastName) }}
-                {{ form_row(registrationForm.email) }}
+				<div>
+					{{ form_row(registrationForm.firstName) }}
+					{{ form_row(registrationForm.lastName) }}
+					{{ form_row(registrationForm.email) }}
+					{{ form_row(registrationForm.phoneNumber) }}
+
+				</div>
+				<div>
+
+					{{ form_row(registrationForm.birthday) }}
+					{{ form_row(registrationForm.avatar) }}
+
+					{{ form_row(registrationForm.RGPDConsent) }}
+
+					<button type="submit" class="btn btn-success">{{'register'|trans}}</button>
+
+					{{ form_end(registrationForm) }}
+				</div>
 			</div>
-			<div>
-				
-				{{ form_row(registrationForm.birthday) }}
-				{{ form_row(registrationForm.avatar) }}
+		</div>
+	</section>
 
-				{{ form_row(registrationForm.agreeTerms) }}
-
-				<button type="submit" class="btn btn-success">{{'register'|trans}}</button>
-
-				{{ form_end(registrationForm) }}
-			</div>
-		{% endblock %}
+{% endblock %}

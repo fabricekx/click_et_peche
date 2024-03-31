@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Modification du profil
+{% endblock %}
+
+{% block body %}
+	{% include "flash.html.twig" %}
+
+
+
+	<section class="container">
+		<div class="row">
+			<div class="col-9 mx-auto">
+
+
+				<h1>Modification du profil</h1>
+
+				{{ form_errors(editProfilType) }}
+
+				{{ form_start(editProfilType) }}
+
+				{{ form_row(editProfilType.pseudo) }}
+
+				
+				<div>
+					{{ form_row(editProfilType.firstName) }}
+					{{ form_row(editProfilType.lastName) }}
+					{{ form_row(editProfilType.email) }}
+					{{ form_row(editProfilType.phoneNumber) }}
+
+				</div>
+				<div>
+
+					{{ form_row(editProfilType.birthday) }}
+					{{ form_row(editProfilType.avatar) }}
+
+				
+
+					<button type="submit" class="btn btn-success">Modifier</button>
+
+					{{ form_end(editProfilType) }}
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

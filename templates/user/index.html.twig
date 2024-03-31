@@ -1,20 +1,51 @@
+{# Étendez ici le layout de base si vous en avez un #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Profil de l'utilisateur
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="container mt-5">
+		<div class="row">
+			{% include "flash.html.twig" %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+			<div class="col-md-6 mx-auto">
+				<div class="card">
+					<div class="card-header">
+						Informations du profil
+					</div>
+					<div class="card-body">
+						<h5 class="card-text">Pseudo :
+							{{ app.user.pseudo }}</h5>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/Click-et-pêche/click_et_peche/src/Controller/UserController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/Click-et-pêche/click_et_peche/templates/user/index.html.twig</code></li>
-    </ul>
-</div>
+						<p class="card-title">{{ app.user.firstName }}
+							{{ app.user.lastName }}</p>
+
+						<p class="card-text">Email :
+							{{ app.user.email }}</p>
+						<p class="card-text">Numéro de téléphone :
+							{{ app.user.phoneNumber }}</p>
+						<a href="{{path('app_profile_edit')}}" class="btn btn-warning">
+							Modifier informations
+						</a>
+
+						<a href="{{path('app_profile_edit_pwd')}}" class="btn btn-danger">
+							Modifier mot de passe
+						</a>
+						<a href="" class="text-light btn btn-dark">
+							Supprimer son compte
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	{# <h5> Vos annonces {{ app.user.annonce|lenght}}<h5>
+		<div>
+		{% for annonce  in app.user.annonce %}
+		<div>{{annonce.title}}</div>
+		{% endfor %}
+		</div> #}
 {% endblock %}

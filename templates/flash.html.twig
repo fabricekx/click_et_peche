@@ -6,4 +6,11 @@
 			</div>
 		{% endfor %}
 	</div>
+		<div class="row col-md-8">
+		{% for message in app.flashes('errors') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+	</div>
 </div>

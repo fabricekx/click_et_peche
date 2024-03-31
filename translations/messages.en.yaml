@@ -7,7 +7,7 @@ userConnected : 'You are logged in as'
 msgPlease : 'Please sign in '
 logout : 'Logout'
 login : 'Sign In'
-
+submit : "Submit"
 
 
 resset_pwd: 'Reset your password'

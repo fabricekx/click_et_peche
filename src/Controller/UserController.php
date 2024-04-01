@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPasswordValidator;
+use App\Service\ImageService;
 
 class UserController extends AbstractController
 {
@@ -22,38 +23,46 @@ class UserController extends AbstractController
     }
 
     #[Route('/profile/edit', name: 'app_profile_edit')]
-    public function modify(Request $request, EntityManagerInterface $entityManager): Response
-    {
+public function modify(
+    Request $request, 
+    EntityManagerInterface $entityManager,
+    ImageService $imageService
+): Response {
+    $oldAvatarPictureName = $this->getUser()->getAvatar();
+    $this->getUser()->setAvatar(null);
+    $form = $this->createForm(EditProfilType::class, $this->getUser());
+    $form->handleRequest($request);
 
-
-        $form = $this->createForm(EditProfilType::class, $this->getUser());
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-
-            if ($form->isValid()) {
-                $entityManager->persist($this->getUser()); // insérer en base
-                $entityManager->flush(); // fermer la transaction executée par la bdd
-
-                $this->addFlash(
-                    'success',
-                    'Votre profile a bien été mis à jour !'
-                );
-                // récupération de l'image de orofil
-                // $user = $this->getUser();
-                // $avatarFilename = $user->getAvatar();
-                // $avatarPath = '/public/images/avatars' . $avatarFilename; // Remplacez ceci par le chemin réel de votre répertoire d'avatars
-
-                return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
-
-            }
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Vérifie si un fichier a été soumis dans le formulaire
+        $avatarFile = $form->get('avatar')->getData();
+        if ($avatarFile) {
+            // Utilisez la méthode copyImage pour gérer le téléchargement de l'image
+            $fileName = $imageService->copyImage("avatar", $this->getParameter("avatar_picture_directory"), $form);
+            // Mettez à jour l'avatar de l'utilisateur avec le nom du fichier
+            $this->getUser()->setAvatar($fileName);
+        } else {
+            $this->getUser()->setAvatar($oldAvatarPictureName);
         }
 
+        // Enregistrez l'utilisateur en base de données
+        $entityManager->persist($this->getUser());
+        $entityManager->flush();
 
-        return $this->render('user/edit_profil.html.twig', [
-            'editProfilType' => $form,
-        ]);
+        // Ajoutez un message flash pour indiquer que le profil a été mis à jour avec succès
+        $this->addFlash('success', 'Votre profil a bien été mis à jour !');
+
+        // Redirigez l'utilisateur vers la page de profil
+        return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
     }
+
+    // Affichez le formulaire de modification du profil
+    return $this->render('user/edit_profil.html.twig', [
+        'editProfilType' => $form,
+        'oldAvatar' => $oldAvatarPictureName,
+    ]);
+}
+
 
 
 

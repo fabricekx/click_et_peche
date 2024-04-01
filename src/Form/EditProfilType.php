@@ -68,7 +68,7 @@ class EditProfilType extends AbstractType
         ])
 
         ->add('avatar', FileType::class, [
-            'label' => 'Avatar',
+            'label' => 'Modifier votre Avatar',
 
             'required' => false, // Vous pouvez modifier ceci en fonction de vos besoins
             'mapped' => true,

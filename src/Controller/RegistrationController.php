@@ -14,8 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Event\AuthenticationEvent;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use App\Service\ImageService;
 
 class RegistrationController extends AbstractController
 {
@@ -24,8 +27,15 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager,
+        ImageService $imageService,
+    ): Response {
+
+         
+            
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -39,27 +49,14 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // gestion du fichier image
-            $avatarFile = $form->get('avatar')->getData();
-
-            // Vérifier si un fichier a été téléchargé
-            if ($avatarFile) {
-                // Générer un nom de fichier unique, uniquid permet de créer un nom à partir de la date et l'heure, pour avoir un nom unique
-                $newFilename = uniqid().'.'.$avatarFile->guessExtension();
-
-                // Déplacer le fichier vers le répertoire où vous souhaitez le stocker
-                try {
-                    $avatarFile->move(
-                        $this->getParameter('kernel.project_dir').'/public/images/avatars', // Répertoire de destination
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // Gérer l'erreur si le déplacement du fichier échoue
-                }
-
-                // Enregistrez le nom de fichier de l'image dans l'entité User
-                $user->setAvatar($newFilename);
-            }
+            // gestion du fichier image, nous allons utiliser le Service ImageService que nous avons créé
+            // et de la méthode copyImage qui a besoin de 3 arguments: name, directory, et form.
+            // Ici le name du champs image est avatar,
+            // nous avons mis le répertoire dans la variable "avatar_picure_directory" qui se trouve dans les 
+            // paramètres dans services.yaml et le form est celui de registration/register
+            $fileName = $imageService->copyImage("avatar", $this->getParameter("avatar_picture_directory"), $form);
+            $user->setAvatar($fileName);
+            
             $this->addFlash(
                 'success',
                 'Votre compte a été créé, vous avez reçu un mail de confirmation'
@@ -68,14 +65,16 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('clique-et-peche@gmail.com', 'Acme Mail Bot'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
 
                     ->htmlTemplate('registration/confirmation_email.html.twig')
-                            ->context(['pseudo' => $user->getPseudo()]) // Assurez-vous que la variable pseudo est correctement passée ici
+                    ->context(['pseudo' => $user->getPseudo()]) // Assurez-vous que la variable pseudo est correctement passée ici
 
             );
 
@@ -84,10 +83,12 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
         ]);
     }
+
 
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response

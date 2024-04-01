@@ -16,7 +16,7 @@
 					</div>
 					<div>
 						{% if app.user.avatar %}
-							<img src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="Avatar de l'utilisateur">
+							<img style="max-width: 100px" src="{{ asset('images/avatars/' ~ app.user.avatar) }}" alt="Avatar de l'utilisateur">
 						{% else %}
 							<img src="{{ asset('images/avatars/images.png') }}" alt="Avatar de l'utilisateur">
 						{% endif %}

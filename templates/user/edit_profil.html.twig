@@ -8,7 +8,6 @@
 	{% include "flash.html.twig" %}
 
 
-
 	<section class="container">
 		<div class="row">
 			<div class="col-9 mx-auto">
@@ -22,7 +21,7 @@
 
 				{{ form_row(editProfilType.pseudo) }}
 
-				
+
 				<div>
 					{{ form_row(editProfilType.firstName) }}
 					{{ form_row(editProfilType.lastName) }}
@@ -33,9 +32,15 @@
 				<div>
 
 					{{ form_row(editProfilType.birthday) }}
-					{{ form_row(editProfilType.avatar) }}
+					<div> Avatar Actuel
+						{% if oldAvatar!=null %}
+							<img style="max-width: 100px" src="{{ asset('images/avatars/' ~ oldAvatar) }}" alt="Avatar de l'utilisateur">
+						{% else %}
+							<img src="{{ asset('images/avatars/images.png') }}" alt="Avatar de l'utilisateur">
+						{% endif %}
+						{{ form_row(editProfilType.avatar) }}
+					</div>
 
-				
 
 					<button type="submit" class="btn btn-success">Modifier</button>
 

@@ -39,10 +39,13 @@ public function modify(
         // Vérifie si un fichier a été soumis dans le formulaire
         $avatarFile = $form->get('avatar')->getData();
         if ($avatarFile) {
-            // Utilisez la méthode copyImage pour gérer le téléchargement de l'image
+            // Utilisez la méthode copyImage pour gérer le téléchargement de l'image, elle a besoin du nom du champs,
+            //du chemin vers le répertoir, et du formulaire sur lequel le fichier est récupéré
             $fileName = $imageService->copyImage("avatar", $this->getParameter("avatar_picture_directory"), $form);
             // Mettez à jour l'avatar de l'utilisateur avec le nom du fichier
             $this->getUser()->setAvatar($fileName);
+            // suppresssion de l'ancienne image sur le serveur:
+            @unlink($this->getParameter("avatar_picture_directory").$oldAvatarPictureName);
         } else {
             // ne pas oublier de remettre l'ancien non d'avatar s'il n'a pas été modifié
             $this->getUser()->setAvatar($oldAvatarPictureName);

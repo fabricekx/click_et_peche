@@ -28,7 +28,9 @@ public function modify(
     EntityManagerInterface $entityManager,
     ImageService $imageService
 ): Response {
+    // on va srocker le nom de l'ancienne image 
     $oldAvatarPictureName = $this->getUser()->getAvatar();
+    // puis mettre à null l'avatar, car dans le formulaire, on a besoin d'un FilteType, pas d'un String
     $this->getUser()->setAvatar(null);
     $form = $this->createForm(EditProfilType::class, $this->getUser());
     $form->handleRequest($request);
@@ -42,6 +44,7 @@ public function modify(
             // Mettez à jour l'avatar de l'utilisateur avec le nom du fichier
             $this->getUser()->setAvatar($fileName);
         } else {
+            // ne pas oublier de remettre l'ancien non d'avatar s'il n'a pas été modifié
             $this->getUser()->setAvatar($oldAvatarPictureName);
         }
 

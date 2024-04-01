@@ -34,8 +34,12 @@ class RegistrationController extends AbstractController
         ImageService $imageService,
     ): Response {
 
-         
-            
+            // Déconnexion de l'utilisateur précédent s'il est connecté
+            $user= $this->getUser();
+            if ($user !=null) {
+
+                return $this->redirectToRoute('app_logout');
+            }
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);

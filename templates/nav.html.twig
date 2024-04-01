@@ -7,11 +7,18 @@
 
 		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-          <a class="nav-link" href="{{path('app_register')}}">S'inscrire</a>
-						
-					</a>
-				</li>
+				{% if app.user == null %}
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+					</li>
+				{% else %}
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+					</li>
+				{% endif %}
 				<li class="nav-item">
 					<a class="nav-link" href="#">Link</a>
 				</li>
